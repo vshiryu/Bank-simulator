@@ -1,5 +1,5 @@
 import { routes } from "../constants/routes";
-import { Routes as Switch, Route, useNavigate } from "react-router-dom";
+import { Routes as Switch, Route } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
