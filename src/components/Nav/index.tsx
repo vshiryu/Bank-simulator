@@ -8,9 +8,6 @@ export const Nav = (): JSX.Element => {
         <li>
           <Link to={routes.home}>Home</Link>
         </li>
-        <li>
-          <Link to={routes.dashboard}>Dashboard</Link>
-        </li>
       </ul>
     </nav>
   );
