@@ -3,12 +3,12 @@ export const setLocalStorageData = (
   userId: string,
   accountId: string
 ) => {
-  localStorage.setItem("@token", JSON.stringify(token));
-  localStorage.setItem("@userId", JSON.stringify(userId));
-  localStorage.setItem("@accountId", JSON.stringify(accountId));
+  localStorage.setItem("@token", token);
+  localStorage.setItem("@userId", userId);
+  localStorage.setItem("@accountId", accountId);
 };
-export const getUserToken = JSON.parse(localStorage.getItem("@token") || "");
-export const getUserId = JSON.parse(localStorage.getItem("@userId") || "");
+export const getUserToken = JSON.parse(localStorage.getItem("@token") || "{}");
+export const getUserId = JSON.parse(localStorage.getItem("@userId") || "{}");
 export const getAccountId = JSON.parse(
-  localStorage.getItem("@accountId") || ""
+  localStorage.getItem("@accountId") || "{}"
 );

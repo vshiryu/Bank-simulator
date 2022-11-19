@@ -1,8 +1,9 @@
 import React from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "./App.css";
 import { Header } from "./components/Header";
 import { Routes } from "./routes";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Header />
       <hr />
       <Routes />
-      <ToastContainer />
+      <ToastContainer theme="dark" />
     </>
   );
 }
