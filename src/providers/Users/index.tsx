@@ -1,5 +1,10 @@
 import { createContext, useState } from "react";
-import { ILoginData, IRegisterData, IPropsProvider } from "../../interfaces";
+import {
+  ILoginData,
+  IRegisterData,
+  IPropsProvider,
+  IUserProvider,
+} from "../../interfaces";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -7,7 +12,7 @@ import { baseAPI } from "../../constants/api";
 import { setLocalStorageData } from "../../constants/localStorage";
 import { routes } from "../../constants/routes";
 
-export const UsersContext = createContext({});
+export const UsersContext = createContext<IUserProvider>({} as IUserProvider);
 
 export const UsersProvider = ({ children }: IPropsProvider) => {
   const [user, setUser] = useState({});
@@ -43,28 +48,31 @@ export const UsersProvider = ({ children }: IPropsProvider) => {
 
   const register = async (registerData: IRegisterData) => {
     await axios
-      .post(baseAPI, registerData)
+      .post(`${baseAPI}users`, registerData)
       .then((res) => {
+        console.log(res.data);
         toastSucess("Sucessfull registration, redirecting...", routes.login);
       })
       .catch((err) => {
-        toastError("Register failed, try again!");
+        toastError(err.response.data.message);
       });
   };
 
   const login = async (loginData: ILoginData) => {
     await axios
-      .post(baseAPI, loginData)
+      .post(`${baseAPI}users/login`, loginData)
       .then((res) => {
+        console.log(res.data);
         const { token, userId, accountId } = res.data;
         setLocalStorageData(token, userId, accountId);
+
         toastSucess("Successful login, redirecting...", routes.home);
 
         setUser(res.data);
         setLogged(true);
       })
       .catch((err) => {
-        toastError("Login failed, try again!");
+        toastError(err.response.data.message);
       });
   };
 
@@ -78,7 +86,7 @@ export const UsersProvider = ({ children }: IPropsProvider) => {
   };
 
   return (
-    <UsersContext.Provider value={{ register, login, user, logged, logout }}>
+    <UsersContext.Provider value={{ register, user, logged, logout, login }}>
       {children}
     </UsersContext.Provider>
   );

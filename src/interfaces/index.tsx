@@ -16,3 +16,11 @@ export interface IRegisterData {
   email: string;
   age: number;
 }
+
+export interface IUserProvider {
+  register: (registerData: IRegisterData) => void;
+  login: (loginData: ILoginData) => void;
+  user: {};
+  logged: boolean;
+  logout: () => void;
+}
