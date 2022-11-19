@@ -1,6 +1,6 @@
 import { IPropsProvider } from "../interfaces";
 import { UsersProvider } from "./Users";
 
-export const Provider = ({ children }: IPropsProvider) => {
+export const Providers = ({ children }: IPropsProvider) => {
   return <UsersProvider>{children}</UsersProvider>;
 };
