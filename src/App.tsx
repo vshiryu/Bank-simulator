@@ -1,5 +1,4 @@
-import React from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 import { Header } from "./components/Header";
 import { Routes } from "./routes";

@@ -7,8 +7,6 @@ export const setLocalStorageData = (
   localStorage.setItem("@userId", userId);
   localStorage.setItem("@accountId", accountId);
 };
-export const getUserToken = JSON.parse(localStorage.getItem("@token") || "{}");
-export const getUserId = JSON.parse(localStorage.getItem("@userId") || "{}");
-export const getAccountId = JSON.parse(
-  localStorage.getItem("@accountId") || "{}"
-);
+export const getUserToken = localStorage.getItem("@token") || "{}";
+export const getUserId = localStorage.getItem("@userId") || "{}";
+export const getAccountId = localStorage.getItem("@accountId") || "{}";
