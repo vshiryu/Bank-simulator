@@ -1,4 +1,12 @@
-export const setUserToken = (token: string) => {
-  localStorage.setItem("@token", JSON.stringify(token));
+export const setLocalStorageData = (
+  token: string,
+  userId: string,
+  accountId: string
+) => {
+  localStorage.setItem("@token", token);
+  localStorage.setItem("@userId", userId);
+  localStorage.setItem("@accountId", accountId);
 };
-export const getUserToken = JSON.parse(localStorage.getItem("@token") || "");
+export const getUserToken = localStorage.getItem("@token") || "{}";
+export const getUserId = localStorage.getItem("@userId") || "{}";
+export const getAccountId = localStorage.getItem("@accountId") || "{}";
