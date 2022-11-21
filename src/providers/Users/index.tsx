@@ -9,7 +9,10 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseAPI } from "../../constants/api";
-import { setLocalStorageData } from "../../constants/localStorage";
+import {
+  getUserToken,
+  setLocalStorageData,
+} from "../../constants/localStorage";
 import { routes } from "../../constants/routes";
 
 export const UsersContext = createContext<IUserProvider>({} as IUserProvider);
@@ -18,6 +21,7 @@ export const UsersProvider = ({ children }: IPropsProvider) => {
   const [user, setUser] = useState({});
   const [logged, setLogged] = useState(false);
   const navigate = useNavigate();
+  const [token, setToken] = useState(getUserToken);
 
   const toastSucess = (message: string, route: string) => {
     toast.success(message, {
@@ -65,7 +69,7 @@ export const UsersProvider = ({ children }: IPropsProvider) => {
         console.log(res.data);
         const { token, userId, accountId } = res.data;
         setLocalStorageData(token, userId, accountId);
-
+        setToken(token);
         toastSucess("Successful login, redirecting...", routes.home);
 
         setUser(res.data);
@@ -80,13 +84,17 @@ export const UsersProvider = ({ children }: IPropsProvider) => {
     localStorage.removeItem("@token");
     localStorage.removeItem("@userId");
     localStorage.removeItem("@accountId");
+    setToken("");
+    setUser({});
     setLogged(false);
 
     toastSucess("Logging out...", routes.login);
   };
 
   return (
-    <UsersContext.Provider value={{ register, user, logged, logout, login }}>
+    <UsersContext.Provider
+      value={{ register, user, logged, logout, login, token, setLogged }}
+    >
       {children}
     </UsersContext.Provider>
   );

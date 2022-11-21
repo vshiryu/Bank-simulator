@@ -4,9 +4,14 @@ import { registerSchema } from "../../schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IRegisterData } from "../../interfaces";
 import { UsersContext } from "../../providers/Users";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../constants/routes";
+import { Form, Input, RedirectBtn, SendBtn, Wrapper } from "../../styles/Form";
+import { Container } from "./style";
 
 export const Register = (): JSX.Element => {
   const context = useContext(UsersContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -22,38 +27,53 @@ export const Register = (): JSX.Element => {
   };
 
   return (
-    <main>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <h2>Register</h2>
-        <div>
+        <Wrapper>
           <label>Name</label>
-          <input {...register("name")} />
+          <Input {...register("name")} />
           <span>{errors.name?.message}</span>
-        </div>
-        <div>
+        </Wrapper>
+        <Wrapper>
           <label>Email</label>
-          <input {...register("email")} />
+          <Input {...register("email")} />
           <span>{errors.email?.message}</span>
-        </div>
-        <div>
+        </Wrapper>
+        <Wrapper>
           <label>Username</label>
-          <input {...register("username")} />
+          <Input {...register("username")} />
           <span>{errors.username?.message}</span>
-        </div>
-        <div>
+        </Wrapper>
+        <Wrapper>
           <label>Password</label>
-          <input {...register("password")} />
+          <Input {...register("password")} type="password" />
           <span>{errors.password?.message}</span>
-        </div>
-        <div>
+        </Wrapper>
+        <Wrapper>
+          <label>Confirm password</label>
+          <Input {...register("confirmPass")} type="password" />
+          <span>{errors.confirmPass?.message}</span>
+        </Wrapper>
+        <Wrapper>
           <label>Age</label>
-          <input {...register("age")} />
+          <Input {...register("age")} />
           <span>{errors.age?.message}</span>
-        </div>
-        <button type="submit" disabled={Object.keys(errors).length > 0}>
+        </Wrapper>
+        <SendBtn type="submit" disabled={Object.keys(errors).length > 0}>
           Register
-        </button>
-      </form>
-    </main>
+        </SendBtn>
+        <span className="btn-span">Already registered?</span>
+        <RedirectBtn
+          className="redirect-register-btn"
+          type="button"
+          onClick={() => {
+            navigate(routes.login);
+          }}
+        >
+          Login here
+        </RedirectBtn>
+      </Form>
+    </Container>
   );
 };
